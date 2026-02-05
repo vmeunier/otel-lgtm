@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Demo OTEL",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

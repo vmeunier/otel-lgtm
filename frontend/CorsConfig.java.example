@@ -1,0 +1,54 @@
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * Configuration CORS pour permettre la propagation des traces W3C depuis le frontend
+ *
+ * Cette configuration permet :
+ * - Les appels depuis le frontend (http://localhost:8080)
+ * - La propagation des headers W3C Trace Context (traceparent, tracestate)
+ */
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                    // Origines autorisées
+                    .allowedOrigins(
+                        "http://localhost:8080",  // Frontend Vite
+                        "http://localhost:3000"   // Frontend CRA (legacy)
+                    )
+                    // Méthodes HTTP autorisées
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+
+                    // Headers autorisés dans la requête
+                    .allowedHeaders(
+                        "Content-Type",
+                        "Authorization",
+                        "traceparent",      // ✅ W3C Trace Context
+                        "tracestate"        // ✅ W3C Trace Context
+                    )
+
+                    // Headers exposés dans la réponse
+                    .exposedHeaders(
+                        "traceparent",      // ✅ Permet au frontend de lire le traceparent de la réponse
+                        "tracestate"
+                    )
+
+                    // Permet l'envoi de cookies/credentials
+                    .allowCredentials(true)
+
+                    // Durée de cache de la configuration CORS (1 heure)
+                    .maxAge(3600);
+            }
+        };
+    }
+}
