@@ -1,12 +1,10 @@
 package com.bouygtel.otel.common.config;
 
-import jakarta.servlet.Filter;
 
 import com.bouygtel.otel.common.filters.MDCCleanerFilter;
 import com.bouygtel.otel.common.interceptor.ChaosInterceptor;
 import com.bouygtel.otel.common.interceptor.LoggingInterceptor;
 
-import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<MDCCleanerFilter> filtreMdcCleaner() {
         final var frb = new FilterRegistrationBean<MDCCleanerFilter>();
-        frb.addUrlPatterns("/api/carts/**");
+        frb.addUrlPatterns("/api/carts/*");
         frb.setFilter(new MDCCleanerFilter());
         frb.setName("[MDC CLEANER] Cleaner for MDC in REST APIs");
         frb.setOrder(10);

@@ -10,23 +10,23 @@ set SCRIPT_DIR=%~dp0
 set PROG_ARGS=-Dspring-boot.run.arguments="--spring.config.additional-location=%SCRIPT_DIR%\..\dev\common\logging.properties"
 
 echo Demarrage de Inventory Service sur le port 8083...
-start "Inventory Service (8083)" cmd /k "cd /d "%SCRIPT_DIR%inventory-service" && echo Demarrage de Inventory Service... && mvn -am spring-boot:run %PROG_ARGS%"
+start "Inventory Service (8083)" cmd /k "cd /d "%SCRIPT_DIR%inventory-service" && echo Demarrage de Inventory Service... && mvn -am compile spring-boot:run %PROG_ARGS%"
 timeout /t 2 /nobreak >nul
 
 echo Demarrage de Cart Service sur le port 8085...&
-start "Cart Service (8085)" cmd /k "cd /d "%SCRIPT_DIR%cart-service" && echo Demarrage de Cart Service... && mvn -am spring-boot:run %PROG_ARGS%"
+start "Cart Service (8085)" cmd /k "cd /d "%SCRIPT_DIR%cart-service" && echo Demarrage de Cart Service... && mvn -am compile spring-boot:run %PROG_ARGS%"
 timeout /t 2 /nobreak >nul
 
 echo Demarrage de Payment Service sur le port 8082...
-start "Payment Service (8082)" cmd /k "cd /d "%SCRIPT_DIR%payment-service" && echo Demarrage de Payment Service... && mvn -am spring-boot:run %PROG_ARGS%"
+start "Payment Service (8082)" cmd /k "cd /d "%SCRIPT_DIR%payment-service" && echo Demarrage de Payment Service... && mvn -am compile spring-boot:run %PROG_ARGS%"
 timeout /t 2 /nobreak >nul
 
 echo Demarrage de Order Service sur le port 8084...
-start "Order Service (8084)" cmd /k "cd /d "%SCRIPT_DIR%order-service" && echo Demarrage de Order Service... && mvn -am spring-boot:run %PROG_ARGS%"
+start "Order Service (8084)" cmd /k "cd /d "%SCRIPT_DIR%order-service" && echo Demarrage de Order Service... && mvn -am compile spring-boot:run %PROG_ARGS%"
 timeout /t 2 /nobreak >nul
 
 echo Demarrage du frontend sur le port 8080...
-start "FrontEnd (8080)" cmd /k "cd /d "%SCRIPT_DIR%frontend" && echo Demarrage du frontend... && npm run dev"
+start "FrontEnd (8080)" cmd /k "cd /d "%SCRIPT_DIR%../frontend" && echo Demarrage du frontend... && npm run dev"
 timeout /t 2 /nobreak >nul
 
 echo.

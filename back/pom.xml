@@ -27,6 +27,7 @@
 	<properties>
 		<java.version>25</java.version>
 		<h2.version>2.2.224</h2.version>
+		<micrometer.version>1.17.0-SNAPSHOT</micrometer.version>
 	</properties>
 
 
